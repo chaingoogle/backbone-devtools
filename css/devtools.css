@@ -1,0 +1,10 @@
+.bdt-highlight {
+	border: 1px solid red !important;
+}
+
+.bdt-info {
+	position: absolute;
+	font-size: 1.2em;
+	color: blue;
+	z-index: 1000;
+}

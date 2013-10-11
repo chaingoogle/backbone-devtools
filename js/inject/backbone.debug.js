@@ -4,6 +4,9 @@
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __slice = [].slice;
 
+  if(!window.Backbone){
+    window.Backbone = require("backbone");
+  }
   Backbone = window.Backbone;
 
   $ = Backbone.$ || window.$;

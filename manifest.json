@@ -14,6 +14,7 @@
     {
       "matches": ["<all_urls>"],
       "js": ["js/inject/content_script.js"],
+      "css": [ "css/devtools.css" ],
       "run_at": "document_start"
     }
   ],

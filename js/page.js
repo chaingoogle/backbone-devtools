@@ -51,16 +51,70 @@
       return tree;
     },
 
-    set$view: function() {
+    set$view: function(loadedTemplates) {
       // get jQuery/Zepto
       var $ = window.Backbone && window.Backbone.$ || window.jQuery || window.Zepto;
       if (!($ && $0)) return;
 
       // Backbone jQuery extension is required
       if (typeof $.fn.backbone != 'function') return;
-
       window.$view = $($0).backbone('closest');
+      for(var i=0;i < document.getElementsByClassName("bdt-highlight").length;i++){
+        var el = document.getElementsByClassName("bdt-highlight")[i];
+        el.className = el.className.replace(/\bbdt-highlight\b/, '');
+      };
+
+      window.$view.$el.addClass("bdt-highlight");
+
+      var tmplName = "";
+      for(var tmpl in loadedTemplates){
+        if(loadedTemplates[tmpl]===window.$view.template){
+          tmplName = tmpl;
+          break;
+        }
+      }
+
+      for(var i=0;i < document.getElementsByClassName("bdt-info").length;i++){
+        var el = document.getElementsByClassName("bdt-info")[i];
+        el.parentNode.removeChild(el);
+      };
+
+      window.$view.$el.prepend("<div class='bdt-info'>"+ tmplName+"</div>");
     },
+
+
+    showAllViewInfo: function(loadedTemplates){
+      console.log("show all views");
+
+      var $ = window.Backbone && window.Backbone.$ || window.jQuery || window.Zepto;
+      var views = [];
+      $("*").each(function(index, view){
+        if($(view).data('_backbone_view')){
+          views.push(view);
+        };
+      });
+
+      console.log("views", views);
+      for(var i=0;i<views.length; i++){
+        var view = views[i];
+        $(view).addClass("bdt-highlight");
+
+        var tmplName = "";
+        for(var tmpl in loadedTemplates){
+          if(loadedTemplates[tmpl]===window.$view.template){
+            tmplName = tmpl;
+            break;
+          }
+        }
+        $(view).prepend("<div class='bdt-info'>tmpl"+ tmplName+"</div>");
+      }
+    },
+
+    hideAllViewInfo: function(){
+      var $ = window.Backbone && window.Backbone.$ || window.jQuery || window.Zepto;
+      $(".bdt-highlight").removeClass("bdt-highlight");
+      $(".bdt-info").remove();
+    }, 
 
     isBackboneDebugReachable: function() {
       return window.Backbone && window.Backbone.debug && true;

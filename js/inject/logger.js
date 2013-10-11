@@ -3,6 +3,10 @@
 (function() {
 
   var instanceType = function(object) {
+    if(!Backbone){
+      Backbone = require("backbone");
+    }
+
     if (object instanceof Backbone.Model) return 'Model';
     if (object instanceof Backbone.Collection) return 'Collection';
     if (object instanceof Backbone.View) return 'View';
