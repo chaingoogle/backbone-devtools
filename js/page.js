@@ -51,6 +51,10 @@
       return tree;
     },
 
+    debug: function(){
+      console.log.apply(console, arguments);
+    },
+
     set$view: function(loadedTemplates) {
       // get jQuery/Zepto
       var $ = window.Backbone && window.Backbone.$ || window.jQuery || window.Zepto;

@@ -36,4 +36,6 @@
     BDT.page.eval('hideAllViewInfo');
   };
 
+  BDT.page.eval('debug', ['hello', 'world']);
+
 })();
